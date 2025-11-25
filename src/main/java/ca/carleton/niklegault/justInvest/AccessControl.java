@@ -1,12 +1,25 @@
 package ca.carleton.niklegault.justInvest;
 
+import java.time.Clock;
+import java.time.Instant;
 import java.time.LocalTime;
+import java.time.ZoneId;
 
 public class AccessControl {
 
+    private final Clock clock;
+
+    public AccessControl() {
+        this.clock = Clock.systemDefaultZone();
+    }
+
+    public AccessControl(Clock clock) {
+        this.clock = clock;
+    }
+
     public boolean hasAccess(User user, Actions action) {
         Roles userRole = user.getRole();
-        if(userRole == Roles.TELLER && (LocalTime.now().getHour() < 9 || LocalTime.now().getHour() >= 17)) {
+        if(userRole == Roles.TELLER && (LocalTime.now(clock).getHour() < 9 || LocalTime.now(clock).getHour() >= 17)) {
             return false;
         }
         switch(action) {
