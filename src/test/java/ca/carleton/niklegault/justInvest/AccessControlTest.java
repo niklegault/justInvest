@@ -13,7 +13,7 @@ class AccessControlTest {
     @Test
     public void testClientAccess() {
         AccessControl accessControl = new AccessControl();
-        User client = new User(Roles.CLIENT);
+        User client = new User(Roles.CLIENT, "test");
 
         // Test client access
         Assertions.assertTrue(accessControl.hasAccess(client, Actions.VIEW_ACCOUNT_BALANCE));
@@ -28,7 +28,7 @@ class AccessControlTest {
     @Test
     public void testPremiumClientAccess() {
         AccessControl accessControl = new AccessControl();
-        User premiumClient = new User(Roles.PREMIUM_CLIENT);
+        User premiumClient = new User(Roles.PREMIUM_CLIENT, "test");
 
         // Test premiumClient access
         Assertions.assertTrue(accessControl.hasAccess(premiumClient, Actions.VIEW_ACCOUNT_BALANCE));
@@ -46,7 +46,7 @@ class AccessControlTest {
         Clock fixedClock = Clock.fixed(fixedTime, ZoneId.of("UTC"));
         AccessControl accessControl = new AccessControl(fixedClock);
 
-        User teller = new User(Roles.TELLER);
+        User teller = new User(Roles.TELLER, "test");
 
         // Test teller access
         Assertions.assertTrue(accessControl.hasAccess(teller, Actions.VIEW_ACCOUNT_BALANCE));
@@ -64,7 +64,7 @@ class AccessControlTest {
         Clock fixedClock = Clock.fixed(fixedTime, ZoneId.of("UTC"));
         AccessControl accessControl = new AccessControl(fixedClock);
 
-        User teller = new User(Roles.TELLER);
+        User teller = new User(Roles.TELLER, "test");
 
         // Test teller access
         Assertions.assertFalse(accessControl.hasAccess(teller, Actions.VIEW_ACCOUNT_BALANCE));
@@ -79,7 +79,7 @@ class AccessControlTest {
     @Test
     public void testAdvisorAccess() {
         AccessControl accessControl = new AccessControl();
-        User advisor = new User(Roles.FINANCIAL_ADVISOR);
+        User advisor = new User(Roles.FINANCIAL_ADVISOR, "test");
 
         // Test advisor access
         Assertions.assertTrue(accessControl.hasAccess(advisor, Actions.VIEW_ACCOUNT_BALANCE));
@@ -94,7 +94,7 @@ class AccessControlTest {
     @Test
     public void testPlannerAccess() {
         AccessControl accessControl = new AccessControl();
-        User planner = new User(Roles.FINANCIAL_PLANNER);
+        User planner = new User(Roles.FINANCIAL_PLANNER, "test");
 
         // Test planner access
         Assertions.assertTrue(accessControl.hasAccess(planner, Actions.VIEW_ACCOUNT_BALANCE));
