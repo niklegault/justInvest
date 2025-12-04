@@ -33,7 +33,7 @@ echo "--- 2. Downloading Dependencies into ${LIB_DIR} ---"
 
 # Download spring-security-crypto
 echo "Downloading ${SPRING_FILE}..."
-if curl -L -o "${LIB_DIR}/${SPRING_FILE}" "${SPRING_URL}"; then
+if wget -L -o "${LIB_DIR}/${SPRING_FILE}" "${SPRING_URL}"; then
     echo "${SPRING_FILE} downloaded successfully."
 else
     echo "ERROR: Failed to download ${SPRING_FILE}. Exiting."
@@ -42,7 +42,7 @@ fi
 
 # Download commons-logging
 echo "Downloading ${LOGGING_FILE}..."
-if curl -L -o "${LIB_DIR}/${LOGGING_FILE}" "${LOGGING_URL}"; then
+if wget -L -o "${LIB_DIR}/${LOGGING_FILE}" "${LOGGING_URL}"; then
     echo "${LOGGING_FILE} downloaded successfully."
 else
     echo "ERROR: Failed to download ${LOGGING_FILE}. Exiting."
