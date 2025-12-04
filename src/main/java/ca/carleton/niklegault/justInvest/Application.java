@@ -1,5 +1,15 @@
 package ca.carleton.niklegault.justInvest;
 
+import ca.carleton.niklegault.justInvest.problem1.AccessControl;
+import ca.carleton.niklegault.justInvest.problem1.Actions;
+import ca.carleton.niklegault.justInvest.problem1.Roles;
+import ca.carleton.niklegault.justInvest.problem1.User;
+import ca.carleton.niklegault.justInvest.problem2.PasswordHashing;
+
+/**
+ * Currently just a placeholder, will be the main method for the JustInvest system.
+ * @author Nik Legault 101229919
+ */
 public class Application {
     public static void main(String[] args) {
         User client = new User(Roles.CLIENT, "test");

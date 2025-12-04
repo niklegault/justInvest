@@ -1,5 +1,7 @@
-package ca.carleton.niklegault.justInvest;
+package ca.carleton.niklegault.justInvest.problem2;
 
+import ca.carleton.niklegault.justInvest.problem1.Roles;
+import ca.carleton.niklegault.justInvest.problem1.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.io.IOException;
 import java.io.BufferedWriter;
@@ -7,6 +9,10 @@ import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
+/**
+ * Implements the password hashing functionality as well as writing and reading from the file.
+ * @author Nik Legault 101229919
+ */
 public class PasswordHashing {
 
     private String hashPassword(String password) {
@@ -19,11 +25,13 @@ public class PasswordHashing {
         return encoder.matches(passwordToCheck, storedPasswordHash);
     }
 
+    // Stores the password in the default passwd.txt
     public void storePassword(String rawPassword, User user) {
         String filename = "passwd.txt";
         storePassword(rawPassword, user, filename);
     }
 
+    // Stores the password in a specific password file
     protected void storePassword(String rawPassword, User user, String filename) {
         String userRow = user.getName() + ":" + hashPassword(rawPassword) + ":" + user.getRole().toString() + "\n";
 
@@ -37,11 +45,13 @@ public class PasswordHashing {
         }
     }
 
+    // Reads the password from the default passwd.txt
     public Roles readPassword(String username, String passwordToCheck) {
         String filename = "passwd.txt";
         return readPassword(username, passwordToCheck, filename);
     }
 
+    // Reads the password from a specific password file
     public Roles readPassword(String username, String passwordToCheck, String filename) {
         boolean userFound = false;
         String foundLine = "";

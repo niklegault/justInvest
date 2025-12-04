@@ -1,5 +1,9 @@
-package ca.carleton.niklegault.justInvest;
+package ca.carleton.niklegault.justInvest.problem1;
 
+/**
+ * The possible actions that can be taken by users of the JustInvest System
+ * @author Nik Legault 101229919
+ */
 public enum Actions {
     VIEW_ACCOUNT_BALANCE,
     VIEW_INVESTMENT_PORTFOLIO,

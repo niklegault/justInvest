@@ -1,4 +1,4 @@
-package ca.carleton.niklegault.justInvest;
+package ca.carleton.niklegault.justInvest.problem1;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

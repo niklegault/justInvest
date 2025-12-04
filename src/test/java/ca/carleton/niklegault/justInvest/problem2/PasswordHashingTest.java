@@ -1,5 +1,7 @@
-package ca.carleton.niklegault.justInvest;
+package ca.carleton.niklegault.justInvest.problem2;
 
+import ca.carleton.niklegault.justInvest.problem1.Roles;
+import ca.carleton.niklegault.justInvest.problem1.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import java.io.File;

@@ -1,8 +1,12 @@
-package ca.carleton.niklegault.justInvest;
+package ca.carleton.niklegault.justInvest.problem1;
 
+/**
+ * A user of the JustInvest System
+ * @author Nik Legault 101229919
+ */
 public class User {
     private Roles role;
-    private String name;
+    private String name; // Username of the user for login purposes
 
     public User(Roles role, String name) {
         this.name = name;

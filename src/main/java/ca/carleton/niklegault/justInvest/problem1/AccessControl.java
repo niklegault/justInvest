@@ -1,12 +1,16 @@
-package ca.carleton.niklegault.justInvest;
+package ca.carleton.niklegault.justInvest.problem1;
 
 import java.time.Clock;
 import java.time.LocalTime;
 import java.util.Calendar;
 
-
+/**
+ * This class implements the Role-Based Access Control mechanism for the JustInvest system
+ *
+ * @author Nik Legault 101229919
+ */
 public class AccessControl {
-
+    // These are used for testing to allow the tests to set a fixed clock or calendar
     private final Clock clock;
     private final Calendar cal;
 
@@ -15,17 +19,19 @@ public class AccessControl {
         this.clock = Clock.systemDefaultZone();
     }
 
-    public AccessControl(Clock clock, Calendar cal) {
+    protected AccessControl(Clock clock, Calendar cal) {
         this.clock = clock;
         this.cal = cal;
     }
 
     public boolean hasAccess(User user, Actions action) {
         Roles userRole = user.getRole();
+        // Check if during business day/hours for teller access
         if(userRole == Roles.TELLER && (LocalTime.now(clock).getHour() < 9 || LocalTime.now(clock).getHour() >= 17 ||
                 cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) || cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
             return false;
         }
+        // Switch depending on the action, and then check roles
         switch(action) {
             case VIEW_ACCOUNT_BALANCE:
             case VIEW_INVESTMENT_PORTFOLIO:
