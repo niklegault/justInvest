@@ -40,7 +40,7 @@ public class SignUp {
 
         password = password.toLowerCase();
         username = username.toLowerCase();
-        if (password.length() < 8 || password.length() > 12 || password.equals(username) || commonPasswords.contains(password)) {
+        if (password.length() < 8 || password.length() > 12 || password.equals(username) || this.commonPasswords.contains(password)) {
             System.out.println("Invalid password parameters.");
             return false;
         }
@@ -52,16 +52,16 @@ public class SignUp {
     private String readCommonPasswords() {
         String fileName = "CommonPasswords.txt";
 
-        ClassLoader classLoader = getClass().getClassLoader();
-        try {
-            URI uri = classLoader.getResource(fileName).toURI();
-            Path path = Path.of(uri);
-            return Files.readString(path, StandardCharsets.UTF_8);
-        } catch (Exception e) {
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(fileName)) {
+            if (inputStream == null) {
+                System.out.println("Error: CommonPasswords.txt not found in resources.");
+                return null;
+            }
+            return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+        } catch (IOException e) {
             System.out.println("Error loading common password list: " + e);
             return null;
         }
-
     }
 
     public boolean register(String password, User user) {
