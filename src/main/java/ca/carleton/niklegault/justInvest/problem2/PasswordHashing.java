@@ -26,13 +26,13 @@ public class PasswordHashing {
     }
 
     // Stores the password in the default passwd.txt
-    public void storePassword(String rawPassword, User user) {
+    public boolean storePassword(String rawPassword, User user) {
         String filename = "passwd.txt";
-        storePassword(rawPassword, user, filename);
+        return storePassword(rawPassword, user, filename);
     }
 
     // Stores the password in a specific password file
-    protected void storePassword(String rawPassword, User user, String filename) {
+    protected boolean storePassword(String rawPassword, User user, String filename) {
         String userRow = user.getName() + ":" + hashPassword(rawPassword) + ":" + user.getRole().toString() + "\n";
 
         try {
@@ -40,8 +40,10 @@ public class PasswordHashing {
             bufferedWriter.write(userRow);
             bufferedWriter.flush();
             bufferedWriter.close();
+            return true;
         } catch (IOException e) {
             System.out.println("There was an error with writing to the password file");
+            return false;
         }
     }
 

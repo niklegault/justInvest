@@ -4,24 +4,28 @@ import ca.carleton.niklegault.justInvest.problem1.AccessControl;
 import ca.carleton.niklegault.justInvest.problem1.Actions;
 import ca.carleton.niklegault.justInvest.problem1.Roles;
 import ca.carleton.niklegault.justInvest.problem1.User;
-import ca.carleton.niklegault.justInvest.problem2.PasswordHashing;
+import ca.carleton.niklegault.justInvest.problem3.SignUp;
 
+import java.util.Arrays;
 import java.util.Scanner;
+import java.io.Console;
 
 /**
  * Currently just a placeholder, will be the main method for the JustInvest system.
  * @author Nik Legault 101229919
  */
 public class Application {
-    private static boolean running;
-    private static boolean loggedIn;
-    private static User user;
-    private static AccessControl accessControl;
+    private static boolean running; // Continues input loop
+    private static boolean loggedIn; // Check if user is logged in
+    private static User user; // The user accessing the system
+    private static AccessControl accessControl; // Access Control mechanism
+    private static SignUp signUp; // Sign up functionality
 
     public static void main(String[] args) {
         running = true;
         loggedIn = false;
         accessControl = new AccessControl();
+        signUp = new SignUp();
         user = null;
         while(running) {
             printOptions();
@@ -119,6 +123,53 @@ public class Application {
                 break;
             case "S":
             case "s":
+                System.out.println("Password Requirements:");
+                System.out.println("------------------------------------");
+                System.out.println("Must be between 8 and 12 characters");
+                System.out.println("Must include at least:");
+                System.out.println("- One upper-case letter");
+                System.out.println("- One lower-case letter");
+                System.out.println("- One numerical digit");
+                System.out.println("- One special character from the following: !, @, #, $, %, *, &");
+                System.out.println("Password cannot match username");
+                System.out.println("Password must not be on list of common weak passwords\n");
+                System.out.println("Roles:");
+                for(Roles role : Roles.values()) {
+                    System.out.println(role);
+                }
+
+                System.out.print("Username (case sensitive): ");
+                String username = scanner.next();
+
+                Console console = System.console();
+                System.out.print("Password (case sensitive): ");
+                char[] passwordChars;
+                if(console == null) {
+                    passwordChars = scanner.next().toCharArray();
+                } else {
+                    passwordChars = console.readPassword();
+                }
+
+                String passwordString;
+                if(passwordChars != null) {
+                    passwordString = new String(passwordChars);
+                    Arrays.fill(passwordChars, ' ');
+                } else {
+                    System.out.println("Please try again\n");
+                    break;
+                }
+
+                System.out.print("Role (Case Sensitive, please use upper-case): ");
+                String role = scanner.next();
+                user = new User(Roles.valueOf(role), username);
+
+                if(signUp.register(passwordString, user)) {
+                    loggedIn = true;
+                    System.out.println("Signed up and logged in successfully");
+                    return;
+                }
+                user = null;
+                System.out.println("Sign up unsuccessful");
                 break;
             case "L":
             case "l":
